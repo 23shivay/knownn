@@ -1,0 +1,12 @@
+# Force LF endings for all text files
+* text=auto eol=lf
+
+# Ensure specific files always use LF
+*.sh text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.json text eol=lf
+*.sql text eol=lf
+*.toml text eol=lf
+*.md text eol=lf

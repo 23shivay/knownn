@@ -16,7 +16,7 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
+  FormLabel, 
   FormMessage,
 } from "components/ui/form";
 import { Input } from "../../../components/ui/input";
@@ -70,7 +70,7 @@ const SignUpPage = () => {
       setIsSubmitting(false);
     }
   };
-
+ 
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="w-full max-w-md p-8 space-y-8 text-black bg-white rounded-lg shadow-md">
