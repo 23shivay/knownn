@@ -6,50 +6,174 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+ 
 
+// CreateEnum
+enum ContentType {
+  Movie
+  WebSeries
+  Show
+}
+
+// Organization model
+model Organization {
+  id          String      @id @default(uuid())
+  name        String      @unique
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  
+  users       User[]
+  chatrooms   ChatRoom[]
+  gossips     Gossip[]
+}
+// User model
 model User {
-  id                Int                 @id @default(autoincrement())
-  email             String?             @unique
-  name              String?
-  number            String              @unique
+  id                String      @id @default(uuid())
+  email             String      @unique
   password          String
-  OnRampTransaction OnRampTransaction[]
-  Balance           Balance[]
+  gender            String
+  isVerified        Boolean     @default(false)
+  verifyCode        String
+  verifyCodeExpiry  DateTime
+  organizationName  String
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  organization      Organization @relation(fields: [organizationName], references: [name], onDelete: Restrict, onUpdate: Cascade)
+  contentSuggestions contentSuggestion[]
 }
 
-model Merchant {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String?
-  auth_type AuthType
+// Chatroom model
+model ChatRoom {
+  id                String      @id @default(uuid())
+  name              String      @unique
+  organizationName  String
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  organization      Organization @relation(fields: [organizationName], references: [name], onDelete:Cascade)
+  chats             Chat[]
 }
 
-model OnRampTransaction {
-  id        Int          @id @default(autoincrement())
-  status    OnRampStatus
-  token     String       @unique
-  provider  String
-  amount    Int
-  startTime DateTime
-  userId    Int
-  user      User         @relation(fields: [userId], references: [id])
+model Chat {
+  id               String    @id @default(uuid())
+  chatRoomName     String?   // Nullable field for chat room association
+  message          String?
+  createdAt        DateTime  @default(now())
+  chatRoom         ChatRoom? @relation(fields: [chatRoomName], references: [name], onDelete: Cascade)
+  isHidden          Boolean         @default(false) 
+  reportCount       Int             @default(0)     
+  status            String          @default("active")
+  @@index([createdAt])
 }
 
-model Balance {
-  id     Int  @id @default(autoincrement())
-  userId Int  @unique
-  amount Int
-  locked Int
-  user   User @relation(fields: [userId], references: [id])
+
+model contentComment {
+  id               String    @id @default(uuid())
+  contentSuggestionId     String  
+  message          String?
+  createdAt        DateTime  @default(now())
+  contentSuggestion        contentSuggestion @relation(fields: [contentSuggestionId], references: [id], onDelete: Cascade)
+  isHidden          Boolean         @default(false) 
+  reportCount       Int             @default(0)     
+  status            String          @default("active")
+  @@index([createdAt])
+
+
+}
+ model gossipComment{
+  id               String    @id @default(uuid())
+  gossipId         String  
+  message          String?
+  createdAt        DateTime  @default(now())
+  gossip        Gossip @relation(fields: [gossipId], references: [id], onDelete: Cascade)
+  isHidden          Boolean         @default(false) 
+  reportCount       Int             @default(0)     
+  status            String          @default("active")
+  @@index([createdAt])
+   
 }
 
-enum AuthType {
-  Google
-  Github
+
+
+
+
+// ContentSuggestion model
+model contentSuggestion {
+  id            String          @id @default(uuid())
+  contentType   ContentType
+  genre         String
+  contentName   String          @unique
+  platform      String?
+  createdAt     DateTime        @default(now())
+  userId        String
+  description   String
+  language      String?
+  likeCount     Int             @default(0)
+  dislikeCount  Int             @default(0)
+  
+  user          User            @relation(fields: [userId], references: [email], onDelete: Cascade, onUpdate: Cascade)
+  contentComments   contentComment[]
+  isHidden          Boolean         @default(false) 
+  reportCount       Int             @default(0)     
+  status            String          @default("active")
+  
+  
+  @@index([createdAt])
 }
 
-enum OnRampStatus {
-  Success
-  Failure
-  Processing
+
+
+model Gossip {
+  id                String          @id @default(uuid()) // UUID for unique ID
+  contentName       String          @unique
+  description       String
+  intrestingCount   Int             @default(0)
+  likeCount         Int             @default(0)
+  dislikeCount      Int             @default(0)
+  createdAt         DateTime        @default(now())
+  organizationName  String
+  organization      Organization    @relation(fields: [organizationName], references: [name], onDelete: Cascade)
+  gossipComments    gossipComment[]
+  isHidden          Boolean         @default(false) 
+  reportCount       Int             @default(0)     
+  status            String          @default("active")
+  
+
+  @@index([createdAt])
 }
+//chat model
+
+
+model Vote {
+  id         Int      @id @default(autoincrement())
+  sessionId  String
+  contentId  String
+  voteType   String
+  createdAt  DateTime @default(now())
+
+  @@unique([sessionId, contentId])
+}
+
+model Report {
+  id            String     @id @default(uuid())  // Unique report ID
+  contentId     String                              // ID of the reported content
+  contentType   String                       // To specify if it is from "Gossip" or 
+  reason        String                              // Reason for reporting (e.g., spam, inappropriate)
+  reporterId    String                              // ID of the user who reported the content
+  createdAt     DateTime   @default(now())          // Timestamp when the report was made
+}
+
+
+
+model ReportMessage {
+  id            String     @id @default(uuid())  
+  messageId     String                              
+  messageType   String                       
+  reason        String                              
+  reporterId    String                              
+  createdAt     DateTime   @default(now())          
+}
+
+
+
+
+

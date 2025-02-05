@@ -1,0 +1,29 @@
+{
+  "extends": "../../packages/typescript-config/base.json",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".", // Set the base URL to the root of your project
+    "paths": {
+      "@/*": [
+        "./components/ui"
+      ] // Set up the import alias for the `src` directory
+    },
+    "allowJs": true,
+    "noEmit": true,
+    "jsx": "preserve"
+  },
+  "include": [
+    "next-env.d.ts",
+    "next.config.js",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
