@@ -107,7 +107,7 @@ const SignUpPage = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
-                  <FormControl>
+                  <FormControl> 
                     <Input type="password" placeholder="password" {...field} />
                   </FormControl>
                   <FormMessage />

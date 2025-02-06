@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useState, useEffect, useRef } from "react";
 import React from "react";
 import { ApiResponse } from "types/ApiResponse"; 
-import { ContentItem } from "../../../../components/contentSuggestion/ContentCard";
+import { ContentItem } from "../../../components/contentSuggestion/ContentCard";
 import CountUp from "react-countup"; 
 import { Button } from "components/ui/button";
 import { MessageType } from "types/messageType";

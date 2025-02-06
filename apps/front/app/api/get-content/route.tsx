@@ -1,6 +1,6 @@
 import { getServerSession, User } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/options";
-import db from "@repo/db/client"
+import db from "@repo/db/client" 
 
 export async function GET(request:Request){
   /*  const session = await getServerSession(authOptions);

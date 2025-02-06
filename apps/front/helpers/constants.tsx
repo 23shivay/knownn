@@ -29,6 +29,11 @@ export const SIDENAV_ITEMS: SideNavItem[] = [
     path: '/gossip',
     icon: <Icon icon="mdi:comment-multiple-outline" width="24" height="24"/>,
   },
+  {
+    title: 'Feedback',
+    path: '/feedback',
+    icon: <Icon icon="mdi:clipboard-text-outline" width="24" height="24"/>,
+  },
  /* {
     title: 'Setting',
     submenu: true,  // Indicates that this item has a submenu

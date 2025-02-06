@@ -175,5 +175,17 @@ model ReportMessage {
 
 
 
+model Feedback {
+  id              String   @id @default(uuid())
+  feedback        String
+  feedbackCategory String
+  why             String?
+  email           String?
+  phoneNumber     String?
+  createdAt       DateTime @default(now())
+}
+
+
+
 
 
