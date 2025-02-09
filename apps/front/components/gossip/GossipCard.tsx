@@ -238,17 +238,17 @@ const Card = ({ item, socket, sessionId, sessionIdVotes }: CardProps) => {
       <div className="flex flex-row justify-evenly items-center mt-4">
         <Button
           onClick={handleLike}
-          className={voteStatus === "like" ? "bg-gradient-to-r from-pink-400 to-purple-600" : ""}
+          className={voteStatus === "like" ? "bg-gradient-to-r from-pink-400 to-purple-600 flex  space-x-1 px-3" : ""} 
         >
           Like
-          <CountUp start={Math.max(0, likeCount - 1)} end={likeCount} duration={0.5} />
+          <CountUp className='px-1' start={Math.max(0, likeCount - 1)} end={likeCount} duration={0.5} />
         </Button>
         <Button
           onClick={handleDislike}
           className={voteStatus === "dislike" ? "bg-gradient-to-r from-pink-400 to-purple-600" : ""}
         >
           Dislike
-          <CountUp start={Math.max(0, dislikeCount - 1)} end={dislikeCount} duration={0.5} />
+          <CountUp className='px-1' start={Math.max(0, dislikeCount - 1)} end={dislikeCount} duration={0.5} />
         </Button>
 
         <Link href={`/gossip/${item.id}`}>

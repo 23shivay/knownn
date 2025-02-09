@@ -249,7 +249,7 @@ const particularGossipPage = ({ params }: { params: { id: string } }) => {
               className={`py-2 px-6 rounded-lg text-white font-semibold transition-all duration-300 ${
                 voteStatus === 'dislike' ? 'bg-gradient-to-r from-pink-400 to-purple-600' : 'bg-gray-700 hover:bg-gray-600'
               }`}
-            >
+            > 
               Dislike <CountUp start={Math.max(0, dislikeCount - 1)} end={dislikeCount} duration={0.5} />
             </button>
           </div>

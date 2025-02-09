@@ -68,7 +68,7 @@ const SignUpPage = () => {
       });
     } finally {
       setIsSubmitting(false);
-    }
+    } 
   };
  
   return (

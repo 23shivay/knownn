@@ -19,6 +19,7 @@ import { signIn, useSession } from 'next-auth/react';
 
 
 export default function SignInForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   
   
@@ -37,35 +38,69 @@ export default function SignInForm() {
   
 
   const { toast } = useToast();
-  const onSubmit = async (data: z.infer<typeof signInSchema>) => {
-    console.log("button clicked")
-    const result = await signIn('credentials', {
-      redirect: false,
-      identifier: data.identifier,
-      password: data.password,
-    });
+  // const onSubmit = async (data: z.infer<typeof signInSchema>) => {
+  //   setIsSubmitting(true);
+  //   const result = await signIn('credentials', {
+  //     redirect: false,
+  //     identifier: data.identifier,
+  //     password: data.password,
+  //   });
 
-    if (result?.error) {
-      if (result.error === 'CredentialsSignin') {
-        toast({
-          title: 'Login Failed',
-          description: 'Incorrect username or password',
-          variant: 'destructive',
-        });
-      } else {
-        toast({
-          title: 'Error',
-          description: result.error,
-          variant: 'destructive',
-        });
-      }
-    }
+  //   if (result?.error) {
+  //     if (result.error === 'CredentialsSignin') {
+  //       toast({
+  //         title: 'Login Failed',
+  //         description: 'Incorrect username or password',
+  //         variant: 'destructive',
+  //       });
+  //     } else {
+  //       toast({
+  //         title: 'Error',
+  //         description: result.error,
+  //         variant: 'destructive',
+  //       });
+  //     }
+  //   }
 
       
 
-   /* if (result?.url) {
-      router.replace(/);
-    }*/
+  //  /* if (result?.url) {
+  //     router.replace(/);
+  //   }*/
+  // };
+
+
+  const onSubmit = async (data: z.infer<typeof signInSchema>) => {
+    setIsSubmitting(true);
+    try {
+      const result = await signIn('credentials', {
+        redirect: false,
+        identifier: data.identifier,
+        password: data.password,
+      });
+  
+      if (result?.error) {
+        toast({
+          title: 'Login Failed',
+          description: result.error === 'CredentialsSignin' 
+            ? 'Incorrect username or password' 
+            : result.error,
+          variant: 'destructive',
+        });
+      } else {
+        // Optional: Redirect manually if needed
+        router.replace(`/`);
+      }
+    } catch (error) {
+      console.error("Sign-in error:", error);
+      toast({
+        title: 'Error',
+        description: 'Something went wrong. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false); // ✅ Ensure it is always reset
+    }
   };
 
   const { data: session } = useSession();
@@ -86,7 +121,7 @@ export default function SignInForm() {
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6  bg-gradient-to-r from-pink-400 to-purple-600 text-transparent bg-clip-text">
             Knownn
           </h1>
-          <p className="mb-4">Sign in to continue your secret conversations</p>
+          <p className="mb-4">Sign in to continue your  anonymous adventure </p>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -112,17 +147,30 @@ export default function SignInForm() {
                 </FormItem>
               )}
             />
-            <Button className='w-full' type="submit">Sign In</Button>
+            <div className="flex justify-center">
+              <Button type="submit" className="min-w-full" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Please wait
+                  </>
+                ) : (
+                  "Sign Up"
+                )}
+              </Button>
+            </div>
+            
           </form>
         </Form>
         <div className="text-center mt-4">
           <p>
-            Not a member yet?{' '}
+            Not a member?{" "}
             <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
               Sign up
             </Link>
           </p>
         </div>
+        
       </div>
     </div>
   );
