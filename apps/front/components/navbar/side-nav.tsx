@@ -20,7 +20,7 @@ const SideNav = () => {
           className="flex flex-row space-x-3 items-center justify-center md:justify-start md:px-6  border-grey-900 h-12 w-full"
         >
           <span className="h-7 w-7 bg-zinc-300 rounded-lg" />
-          <span className="font-bold text-xl hidden md:flex bg-gradient-to-r from-pink-400 to-purple-600 text-transparent bg-clip-text">Known</span>
+          <span className="font-bold text-xl hidden md:flex bg-gradient-to-r from-pink-400 to-purple-600 text-transparent bg-clip-text">Knownn</span>
         </Link>
 
         <div className="flex flex-col space-y-2  md:px-6 ">

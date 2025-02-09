@@ -9,7 +9,7 @@ import HeaderMobile from "components/navbar/HeaderMobile";
 import SideNav from "components/navbar/side-nav";
 import PageWrapper from "components/navbar/PageWrapper";
 import MarginWidthWrapper from "components/navbar/margin-width-wrapper";
-import { SocketProvider } from "context/SocketContext";
+import { SocketProvider } from "context/SocketContext";   
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -54,3 +54,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+
