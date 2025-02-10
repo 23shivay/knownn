@@ -9,6 +9,9 @@
     },
     "exports": {
         "./client": "./index.ts"
+    },
+    "scripts": {
+        "postinstall": "prisma generate"
     }
     
 }
