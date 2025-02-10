@@ -12,7 +12,7 @@ interface SocketProviderProps {
 export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     // Memoize the socket instance so it’s created only once
     const socket = useMemo(() => {
-        const socketInstance: Socket = io('http://localhost:8000', {
+        const socketInstance: Socket = io('https://knownn.onrender.com', {
             autoConnect: true, // Ensures connection is established immediately
         });
         return socketInstance;
