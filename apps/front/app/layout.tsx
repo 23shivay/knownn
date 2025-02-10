@@ -17,8 +17,8 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "Knowns",
-  description: "Talk to Unknowns which You know",
+  title: "Knownn",
+  description: "Knownn-Drop Thoughts,Not Names!!",
 };
 
 export default function RootLayout({
