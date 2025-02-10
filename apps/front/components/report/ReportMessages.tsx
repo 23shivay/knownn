@@ -3,12 +3,12 @@ import { BsThreeDots } from "react-icons/bs";
 import { MdOutlineReportGmailerrorred } from "react-icons/md";
 import axios, { AxiosError } from "axios";
 import { useToast } from "components/ui/use-toast";
-import { MessageItem } from "components/chat/Chats";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuItem,
+  DropdownMenuItem, 
   DropdownMenuPortal,
   DropdownMenuSub,
   DropdownMenuSubContent,
@@ -16,6 +16,15 @@ import {
   DropdownMenuTrigger,
 } from "components/ui/dropdown-menu";
 import { ApiResponse } from "types/ApiResponse";
+
+
+export interface MessageItem {
+  id: string;
+  message: string;
+  group_id: string;
+  sender_session_id?: string;
+  createdAt: string;
+}
 
 const ReportMessage = ({
   item,

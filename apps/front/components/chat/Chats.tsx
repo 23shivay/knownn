@@ -151,7 +151,7 @@
 // }
   
 
-
+ 
 // components/chat/Chats.tsx
 "use client";
 import React, { useEffect, useRef, useState, useCallback } from "react";
@@ -187,6 +187,7 @@ export default function Chats({ groupId }: { groupId: string }) {
   const previousHeightRef = useRef<number>(0);
   const shouldScrollRef = useRef(true);
 
+  
   // Function to check if user is near bottom
   const isNearBottom = useCallback(() => {
     if (messagesContainerRef.current) {
