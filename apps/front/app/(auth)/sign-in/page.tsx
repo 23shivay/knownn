@@ -3,7 +3,7 @@ import {zodResolver} from "@hookform/resolvers/zod"
 import {useForm} from "react-hook-form"
 import *as z from "zod"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useToast } from "components/ui/use-toast"
 import { redirect, useRouter } from "next/navigation"
 import { signInSchema } from "../../../schemas/signInSchema"
@@ -21,6 +21,13 @@ import { signIn, useSession } from 'next-auth/react';
 export default function SignInForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session?.user) {
+      router.push('/'); // Redirect to home page if session exists
+    }
+  }, [session, router]);
   
   
   
@@ -68,7 +75,7 @@ export default function SignInForm() {
   //     router.replace(/);
   //   }*/
   // };
-
+  
 
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
     setIsSubmitting(true);
@@ -103,7 +110,7 @@ export default function SignInForm() {
     }
   };
 
-  const { data: session } = useSession();
+  
   const orgName = session?.user?.organizationName;
   if(session!=null){
     router.push(`/`)
