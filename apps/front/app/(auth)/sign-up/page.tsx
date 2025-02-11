@@ -72,7 +72,7 @@ const SignUpPage = () => {
   };
  
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center h-[calc(100vh-6rem)]">
       <div className="w-full max-w-md p-8 space-y-8 text-black bg-white rounded-lg shadow-md">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6  bg-gradient-to-r from-pink-400 to-purple-600 text-transparent bg-clip-text ">

@@ -11,9 +11,10 @@ import { useParams, useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'; 
 import *as z from 'zod';
+import { Loader2 } from 'lucide-react';
 
 const page = () => {
-    const [submitting,setIsSubmitting]=useState(false);
+    const [isSubmitting,setIsSubmitting]=useState(false);
     const {toast}=useToast();
     const router=useRouter();
     const params=useParams();
@@ -53,6 +54,9 @@ const page = () => {
           variant: 'destructive',
         });
       }
+      finally {
+        setIsSubmitting(false);
+      }
       
 
      }
@@ -62,9 +66,9 @@ const page = () => {
 
 
     
-
+ 
   return (
-    <div  className="flex justify-center items-center min-h-screen ">
+    <div  className="flex justify-center items-center h-[calc(100vh-6rem)] ">
       <div className="w-full max-w-md p-8 space-y-8 bg-white text-black rounded-lg shadow-md">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6  bg-gradient-to-r from-pink-400 to-purple-600 text-transparent bg-clip-text ">  Verify Your Account </h1>
@@ -84,7 +88,18 @@ const page = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit" className='w-full'>Verify</Button>
+            <div className="flex justify-center">
+              <Button type="submit" className="min-w-full" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Please wait
+                  </>
+                ) : (
+                  "Verify"
+                )}
+              </Button>
+            </div>
           </form>
         </Form>
 

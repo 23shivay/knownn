@@ -1,89 +1,82 @@
-"use client" 
-import {zodResolver} from "@hookform/resolvers/zod"
-import {useForm} from "react-hook-form"
-import *as z from "zod"
-import Link from "next/link"
-import { useEffect, useState } from "react"
-import { useToast } from "components/ui/use-toast"
-import { redirect, useRouter } from "next/navigation"
-import { signInSchema } from "../../../schemas/signInSchema"
-import axios, { AxiosError } from 'axios'
-import { ApiResponse } from "../../../types/ApiResponse"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "components/ui/form"
-import { Input } from "components/ui/input"
-import { Button } from 'components/ui/button';
-import { Loader2 } from "lucide-react"
-
-
-import { signIn, useSession } from 'next-auth/react';
-
+'use client'
+import { useEffect, useState } from "react";
+import { useToast } from "components/ui/use-toast";
+import { useRouter } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
+import { Button } from "components/ui/button";
+import { Loader2 } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { signInSchema } from "../../../schemas/signInSchema";
+import { Form, FormField, FormItem, FormLabel, FormMessage } from "components/ui/form";
+import { Input } from 'components/ui/input';
+import Link from "next/link";
 
 export default function SignInForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
-  const { data: session } = useSession();
-  
-  // Check for session and redirect if user is already logged in
-  useEffect(() => {
-    if (session?.user) {
-      router.push('/'); // Redirect to home page if session exists
-    }
-  }, [session, router]);
+  const { data: session, status } = useSession(); // Using the session status
 
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      identifier: '',
-      password: '',
+      identifier: "",
+      password: "",
     },
   });
 
   const { toast } = useToast();
-  
+
+  // Check if user is already signed in
+  useEffect(() => {
+    if (session?.user) {
+      router.push("/"); // Redirect to home page if session exists
+    }
+  }, [session, router]);
+
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
     setIsSubmitting(true);
     try {
-      const result = await signIn('credentials', {
+      const result = await signIn("credentials", {
         redirect: false,
         identifier: data.identifier,
         password: data.password,
       });
-      if(!result?.error){
-        router.push('/');
-      }
+      router.replace('/sign-in');
       if (result?.error) {
         toast({
-          title: 'Login Failed',
-          description: result.error === 'CredentialsSignin' 
-            ? 'Incorrect username or password' 
-            : 'You are using a RESTRICTED WIFI SERVICE',
-          variant: 'destructive',
+          title: "Login Failed",
+          description:
+            result.error === "CredentialsSignin"
+              ? "Incorrect username or password"
+              : "You are using a RESTRICTED WIFI SERVICE",
+          variant: "destructive",
         });
       } else {
-        router.push('/'); // Redirect to home page after successful sign-in
+        // This will automatically update the session, triggering the redirect effect.
+        // No need for immediate router.push here since `useSession` will handle it.
       }
     } catch (error) {
       console.error("Sign-in error:", error);
       toast({
-        title: 'Error',
-        description: 'Something went wrong. Please try again.',
-        variant: 'destructive',
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
       });
     } finally {
-      setIsSubmitting(false); // ✅ Ensure it is always reset
+      setIsSubmitting(false);
     }
   };
 
-
-
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center h-[calc(100vh-6rem)]">
       <div className="w-full max-w-md p-8 space-y-8 text-black bg-white rounded-lg shadow-md">
         <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6  bg-gradient-to-r from-pink-400 to-purple-600 text-transparent bg-clip-text">
+          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6 bg-gradient-to-r from-pink-400 to-purple-600 text-transparent bg-clip-text">
             Knownn
           </h1>
-          <p className="mb-4">Sign in to continue your  anonymous adventure </p>
+          <p className="mb-4">Sign in to continue your anonymous adventure</p>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -117,11 +110,10 @@ export default function SignInForm() {
                     Please wait
                   </>
                 ) : (
-                  "Sign Up"
+                  "Sign In"
                 )}
               </Button>
             </div>
-            
           </form>
         </Form>
         <div className="text-center mt-4">
@@ -132,8 +124,7 @@ export default function SignInForm() {
             </Link>
           </p>
         </div>
-        
       </div>
     </div>
   );
-} 
+}
