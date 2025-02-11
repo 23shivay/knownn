@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Link from 'next/link';
-import { useSelectedLayoutSegment } from 'next/navigation';
+import { useRouter, useSelectedLayoutSegment } from 'next/navigation';
 
 import useScroll from 'hooks/use-scroll';
 import { cn } from 'lib/utils';
@@ -15,7 +15,11 @@ const Header = () => {
   const scrolled = useScroll(5);
   const selectedLayout = useSelectedLayoutSegment();
   const {data:session}=useSession()
+  const router=useRouter()
   const user:User=session?.user
+  useEffect(()=>{
+    router.push('/')
+  },[session])
 
   return (
     <div
