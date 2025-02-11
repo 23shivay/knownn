@@ -18,6 +18,11 @@ export default function SignInForm() {
   const router = useRouter();
   const { data: session, status } = useSession(); // Using the session status
 
+
+  useEffect(()=>{ if (session?.user) {
+    router.replace("/"); // Redirect to home page if already signed in
+  }},[session, router])
+
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
