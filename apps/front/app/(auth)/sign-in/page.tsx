@@ -84,12 +84,12 @@ export default function SignInForm() {
           title: 'Login Failed',
           description: result.error === 'CredentialsSignin' 
             ? 'Incorrect username or password' 
-            : result.error,
+            : 'your are using RESTRICTED WIFI SERVICE',
           variant: 'destructive',
         });
       } else {
         // Optional: Redirect manually if needed
-        router.replace(`/`);
+        router.push(`/`);
       }
     } catch (error) {
       console.error("Sign-in error:", error);
