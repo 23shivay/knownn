@@ -22,18 +22,13 @@ export default function SignInForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
-
+  
+  // Check for session and redirect if user is already logged in
   useEffect(() => {
     if (session?.user) {
       router.push('/'); // Redirect to home page if session exists
     }
   }, [session, router]);
-  
-  
-  
-
-  
-
 
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -42,41 +37,9 @@ export default function SignInForm() {
       password: '',
     },
   });
-  
 
   const { toast } = useToast();
-  // const onSubmit = async (data: z.infer<typeof signInSchema>) => {
-  //   setIsSubmitting(true);
-  //   const result = await signIn('credentials', {
-  //     redirect: false,
-  //     identifier: data.identifier,
-  //     password: data.password,
-  //   });
-
-  //   if (result?.error) {
-  //     if (result.error === 'CredentialsSignin') {
-  //       toast({
-  //         title: 'Login Failed',
-  //         description: 'Incorrect username or password',
-  //         variant: 'destructive',
-  //       });
-  //     } else {
-  //       toast({
-  //         title: 'Error',
-  //         description: result.error,
-  //         variant: 'destructive',
-  //       });
-  //     }
-  //   }
-
-      
-
-  //  /* if (result?.url) {
-  //     router.replace(/);
-  //   }*/
-  // };
   
-
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
     setIsSubmitting(true);
     try {
@@ -91,12 +54,11 @@ export default function SignInForm() {
           title: 'Login Failed',
           description: result.error === 'CredentialsSignin' 
             ? 'Incorrect username or password' 
-            : 'your are using RESTRICTED WIFI SERVICE',
+            : 'You are using a RESTRICTED WIFI SERVICE',
           variant: 'destructive',
         });
       } else {
-        // Optional: Redirect manually if needed
-        router.push(`/`);
+        router.push('/'); // Redirect to home page after successful sign-in
       }
     } catch (error) {
       console.error("Sign-in error:", error);
@@ -109,15 +71,6 @@ export default function SignInForm() {
       setIsSubmitting(false); // ✅ Ensure it is always reset
     }
   };
-
-  
-  const orgName = session?.user?.organizationName;
-  if(session!=null){
-    router.push(`/`)
-
-  }
- 
-  
 
 
 
