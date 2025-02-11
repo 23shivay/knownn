@@ -35,14 +35,14 @@ import { getToken } from 'next-auth/jwt';
 export { default } from 'next-auth/middleware';
 
 export const config = {
-  matcher: ['/', '/gossip/:path*', '/contentsuggestion/:path*', '/sign-in', '/sign-up', '/verify/:path*','/chat/:path*','/feedback'],
+  matcher: ['/', '/gossip/:path*', '/contentsuggestion/:path*', '/sign-in', '/sign-up', '/verify','/chat/:path*','/feedback'],
 };
 
 export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
 
   const url = request.nextUrl;
-  const isAuthRoute = ['/sign-in', '/sign-up', '/verify/:path*',].includes(url.pathname);
+  const isAuthRoute = ['/sign-in', '/sign-up', '/verify*',].includes(url.pathname);
 
   // If user is authenticated and trying to access auth routes, redirect to home
   if (token && isAuthRoute) {

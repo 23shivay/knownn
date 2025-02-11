@@ -5,7 +5,7 @@ import { sendVerificationEmail } from "../../../helpers/sendVerificationEmail";
 export async function POST(request: Request) {
   try {
     const { email, password, gender } = await request.json();
-
+ 
     // Validate input
     if (!email || !password || !gender) {
       return new Response(
@@ -56,6 +56,11 @@ export async function POST(request: Request) {
             }),
             { status: 500 }
           );
+        }
+        else{
+          console.log("email sent ")
+          console.log("email is",email);
+          console.log("otp is",verifyCode)
         }
 
         return new Response(

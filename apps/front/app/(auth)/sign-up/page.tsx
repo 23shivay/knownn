@@ -78,7 +78,7 @@ const SignUpPage = () => {
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6  bg-gradient-to-r from-pink-400 to-purple-600 text-transparent bg-clip-text ">
             Knownn
           </h1>
-          <p className="mb-4">Sign up to start your anonymous adventure</p>
+          <p className="mb-4">Sign up with your college/org email to interact with others who have the same</p>
         </div>
 
         <Form {...form}>
