@@ -17,9 +17,8 @@ const Header = () => {
   const {data:session}=useSession()
   const router=useRouter()
   const user:User=session?.user
-  useEffect(()=>{
-    router.push('/')
-  },[session])
+  console.log("session is Header",session);
+ 
 
   return (
     <div

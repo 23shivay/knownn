@@ -3,9 +3,9 @@ import {zodResolver} from "@hookform/resolvers/zod"
 import {useForm} from "react-hook-form"
 import *as z from "zod"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useToast } from "components/ui/use-toast"
-import { redirect, useRouter } from "next/navigation"
+import { redirect, usePathname, useRouter } from "next/navigation"
 import { signInSchema } from "../../../schemas/signInSchema"
 import axios, { AxiosError } from 'axios'
 import { ApiResponse } from "../../../types/ApiResponse"
@@ -15,12 +15,16 @@ import { Button } from 'components/ui/button';
 import { Loader2 } from "lucide-react"
 
 
+
 import { signIn, useSession } from 'next-auth/react';
 
 
 export default function SignInForm() {
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { data: session, update } = useSession(); 
   const router = useRouter();
+ 
   
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -32,42 +36,51 @@ export default function SignInForm() {
   
 
   const { toast } = useToast();
-  const onSubmit = async (data: z.infer<typeof signInSchema>) => {
-    setIsSubmitting(true);
-    const result = await signIn('credentials', {
-      redirect: true,
-      identifier: data.identifier,
-      password: data.password,
-    });
+  
 
-    if (result?.error) {
-      if (result.error === 'CredentialsSignin') {
+
+  const onSubmit = async (data: z.infer<typeof signInSchema>) => {
+    try {
+      setIsSubmitting(true);
+  
+      const result = await signIn("credentials", {
+        redirect: false, 
+        identifier: data.identifier,
+        password: data.password,
+      });
+  
+      window.location.reload();
+      if (result?.error) {
         toast({
-          title: 'Login Failed',
-          description: 'Incorrect username or password',
-          variant: 'destructive',
+          title: "Login Failed",
+          description:
+            result.error === "CredentialsSignin"
+              ? "Incorrect username or password"
+              : "You may be using a RESTRICTED WiFi network",
+          variant: "destructive",
         });
       } else {
-        toast({
-          title: 'Error',
-          description:'may be you are using RISTRICTED  Wifi',
-          variant: 'destructive',
-        });
+        router.replace("/");
+        console.log("session in sign-in page",session)
       }
+    } catch (error) {
+      toast({
+        title: "Unexpected Error",
+        description: "Something went wrong. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
-
-    if (result?.ok) {
-      router.replace('/');
-    }
-    setIsSubmitting(false);
   };
+  
  
   
 
 
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center h-[calc(100vh-6rem)]">
       <div className="w-full max-w-md p-8 space-y-8 text-black bg-white rounded-lg shadow-md">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6  bg-gradient-to-r from-pink-400 to-purple-600 text-transparent bg-clip-text">

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 import { redirect, usePathname, useRouter } from 'next/navigation';
@@ -12,6 +12,7 @@ import { useSession } from 'next-auth/react';
 import axios from 'axios';
 
 const SideNav = () => {
+ 
   return (
     <div className="md:w-60 bg-black h-screen flex-1 fixed border-r text-white border-gray-600 hidden md:flex">
       <div className="flex flex-col space-y-6 w-full">
@@ -133,7 +134,7 @@ const MenuItem = ({ item }: { item: SideNavItem }) => {
   const { data: session } = useSession();  
 
   const orgName = session?.user?.organizationName;
-
+  
   const handleButtonClick = (name: string) => {
     if (!session) return; // Prevent function from executing if user is not logged in
     handleChatRooms(name);

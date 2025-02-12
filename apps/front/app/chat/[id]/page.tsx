@@ -69,7 +69,7 @@ import Chats from "components/chat/Chats";
 
 const Page = ({ params }: { params: { id: string } }) => {
   return (
-    <div>
+    <div className="">
       <Chats groupId={params.id} />
     </div>
   );

@@ -70,7 +70,7 @@ const SignUpPage = () => {
       setIsSubmitting(false);
     } 
   };
- 
+  
   return (
     <div className="flex justify-center items-center h-[calc(100vh-6rem)]">
       <div className="w-full max-w-md p-8 space-y-8 text-black bg-white rounded-lg shadow-md">

@@ -124,9 +124,7 @@ export const authOptions: NextAuthOptions = {
         token.email = user.email;
         token.isVerified = user.isVerified;
         token.organizationName = user.organizationName;
-        token.gender = user.gender;
-
-    
+        token.gender = user.gender;    
       }
       return token;
     },
@@ -141,6 +139,7 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+   
   },
   session: {
     strategy: 'jwt',
