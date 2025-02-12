@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { redirect, usePathname, useRouter } from 'next/navigation';
 
-import { SIDENAV_ITEMS } from '../../helpers/constants';
+import { SIDENAV_ITEMS } from '../../helpers/constants'; 
 import { SideNavItem } from '../../types/SidebarTypes';
 import { ChevronDown } from "lucide-react";
 import { useSession } from 'next-auth/react';
