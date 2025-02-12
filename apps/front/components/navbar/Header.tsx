@@ -17,7 +17,7 @@ const Header = () => {
   const {data:session}=useSession()
   const router=useRouter()
   const user:User=session?.user
-  console.log("session is Header",session);
+  
  
 
   return (

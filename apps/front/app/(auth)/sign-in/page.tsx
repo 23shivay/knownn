@@ -61,7 +61,7 @@ export default function SignInForm() {
         });
       } else {
         router.replace("/");
-        console.log("session in sign-in page",session)
+       
       }
     } catch (error) {
       toast({
