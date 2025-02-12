@@ -34,7 +34,7 @@ export async function POST(request: Request, { params }: { params: { contentId: 
       return new Response(
         JSON.stringify({
           success: false,
-          message: "No vote found for this sessionId and contentId",
+          message: "You haven't voted yet",
         }),
         { status: 404 }
       );
