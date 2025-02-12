@@ -215,7 +215,7 @@ const particularGossipPage = ({ params }: { params: { id: string } }) => {
   return isLoading ? (
     <div className="flex justify-center items-center h-screen">
       <Spinner/>
-    </div>
+    </div> 
   ) : ( 
     <div className="flex flex-col justify-center items-center h-[calc(100vh-6rem)] bg-black text-white overflow-auto pt-2">
       <div className="flex flex-col lg:flex-row w-full max-w-4xl bg-black shadow-lg h-auto lg:h-3/4 overflow-hidden border-b border-r border-gray-700">

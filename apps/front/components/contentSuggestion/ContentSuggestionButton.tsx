@@ -25,7 +25,7 @@ import axios, { AxiosError } from 'axios'
 import { ApiResponse } from 'types/ApiResponse'
 import { contentCardType } from 'types/contentCardType';
 import ContentCard from './ContentCard';
-import Spinner from 'components/overall/Spinner';
+import Spinner from 'components/overall/Spinner';  
  
 const ContentSuggestionButton = ({userId}:{userId:string}) => {
     const [open,setOpen]=useState(false)
@@ -145,15 +145,15 @@ const fetchingSessionIdVotingonAll = useCallback(async () => {
 }, [toast,setIsLoading]);
   
 
-   // Fetch initial state from the server
-  //  useEffect(() => {
-  //   if (!session || !session.user) return;
+   //Fetch initial state from the server
+   useEffect(() => {
+    if (!session || !session.user) return;
 
-  //   fetchContent();
-  //   fetchingSessionIdVotingonAll()
+    fetchContent();
+    fetchingSessionIdVotingonAll()
 
     
-  // }, [session,toast,isSubmitting==false]);
+  }, [session,toast,isSubmitting==false]);
 
     useEffect(() => {
       const fetchData = async () => {
@@ -166,7 +166,7 @@ const fetchingSessionIdVotingonAll = useCallback(async () => {
         setIsLoading(false); // End loading
       };
       fetchData();
-    }, [fetchingSessionIdVotingonAll,fetchContent]);
+    }, [fetchingSessionIdVotingonAll,fetchContent,toast]);
 
 
     return isLoading ? (

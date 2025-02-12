@@ -12,7 +12,7 @@ import React, { useState } from 'react'
 const page = () => {
   const [isLoading,setIsLoading]=useState(true)
   const { data: session } = useSession();
-  const userEmail=session?.user?.email
+  const userEmail=session?.user?.email  
   
    
   

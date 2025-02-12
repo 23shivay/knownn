@@ -45,7 +45,7 @@ interface ContentCardProps {
   content: GossipItem[];
 }
 
-
+ 
 const GossipPage = () => {
     const [open,setOpen]=useState(false)
     const[isSubmitting,setIsSubmitting]=useState(false);
