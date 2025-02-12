@@ -4,15 +4,15 @@ import db from "@repo/db/client"
 
 export async function POST(request:Request){
     
-    const session = await getServerSession(authOptions);
+    /*const session = await getServerSession(authOptions);
     const _user: User = session?.user;
 
-    if (!session || !_user) {
+    if (!session || !_user) { 
       return Response.json(
         { success: false, message: 'Not authenticated' },
         { status: 401 }
       );
-    }
+    }*/
       const { organizationName } = await request.json();
     try {
 

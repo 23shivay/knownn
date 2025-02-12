@@ -2,7 +2,7 @@ import db from "@repo/db/client"
 
 export async function POST(request:Request){
     try {
-        
+         
        // const {contentType,genre,contentName,description,language,platform}=await request.json()
         const{userId,contentData,contentId}=await request.json()
         const Id = contentId.concat("-content");

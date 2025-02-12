@@ -6,7 +6,7 @@ import {
     DialogContent,
     DialogDescription,
     DialogHeader,
-    DialogTitle,
+    DialogTitle, 
     DialogTrigger,
   } from "components/ui/dialog"
   import { useForm } from 'react-hook-form'
@@ -25,7 +25,7 @@ import axios, { AxiosError } from 'axios'
 import { ApiResponse } from 'types/ApiResponse'
 import { contentCardType } from 'types/contentCardType';
 import ContentCard from './ContentCard';
-import Spinner from 'components/overall/Spinner';  
+import Spinner from 'components/overall/Spinner';    
  
 const ContentSuggestionButton = ({userId}:{userId:string}) => {
     const [open,setOpen]=useState(false)
@@ -36,7 +36,6 @@ const ContentSuggestionButton = ({userId}:{userId:string}) => {
     const {toast}=useToast();
     const { data: session } = useSession();
     const userid=session?.user?.sessionId
-
     
 
     
@@ -85,7 +84,7 @@ const ContentSuggestionButton = ({userId}:{userId:string}) => {
     }
 
    }
-
+ 
    //fetching content
     const fetchContent = useCallback(
     async (refresh: boolean = false) => {
@@ -127,8 +126,7 @@ const fetchingSessionIdVotingonAll = useCallback(async () => {
     const response = await axios.post(`/api/get-listofvoted`,{sessionId:userid});
     const sessionIdVotingAll = response.data.data;
     
-    // Log the fetched vote to debug
-    console.log(sessionIdVotingAll);
+   
     setSessionIdVotes(sessionIdVotingAll)
 
     
@@ -153,20 +151,20 @@ const fetchingSessionIdVotingonAll = useCallback(async () => {
     fetchingSessionIdVotingonAll()
 
     
-  }, [session,toast,isSubmitting==false]);
+  }, [session,toast]);
 
-    useEffect(() => {
-      const fetchData = async () => {
-        setIsLoading(true); // Start loading
-        await Promise.all([
-          fetchingSessionIdVotingonAll(),
-          fetchContent()
+    // useEffect(() => {
+    //   const fetchData = async () => {
+    //     setIsLoading(true); // Start loading
+    //     await Promise.all([
+    //       fetchingSessionIdVotingonAll(),
+    //       fetchContent()
         
-        ]);
-        setIsLoading(false); // End loading
-      };
-      fetchData();
-    }, [fetchingSessionIdVotingonAll,fetchContent,toast]);
+    //     ]);
+    //     setIsLoading(false); // End loading
+    //   };
+    //   fetchData();
+    // }, [fetchingSessionIdVotingonAll,fetchContent]);
 
 
     return isLoading ? (
@@ -336,4 +334,8 @@ const fetchingSessionIdVotingonAll = useCallback(async () => {
   
 
 
-export default ContentSuggestionButton
+export default ContentSuggestionButton;
+
+
+
+

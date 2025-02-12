@@ -12,7 +12,7 @@ export async function GET(request:Request){
         { status: 401 }
       );
     }*/
-    try {
+    try { 
 
         const suggestedConted=await db.contentSuggestion.findMany({
           orderBy: { createdAt: 'desc' }, 
