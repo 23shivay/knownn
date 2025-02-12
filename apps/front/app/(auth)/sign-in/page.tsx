@@ -33,6 +33,7 @@ export default function SignInForm() {
 
   const { toast } = useToast();
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
+    setIsSubmitting(true);
     const result = await signIn('credentials', {
       redirect: true,
       identifier: data.identifier,
@@ -58,6 +59,7 @@ export default function SignInForm() {
     if (result?.ok) {
       router.replace('/');
     }
+    setIsSubmitting(false);
   };
  
   

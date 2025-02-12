@@ -377,7 +377,7 @@ export default function Chats({ groupId }: { groupId: string }) {
 
       <div 
         ref={messagesContainerRef}
-        className="flex-1 overflow-y-auto scrollbar-rounded scrollbar-thin scrollbar-track-black scrollbar-thumb-gray-700"
+        className="flex-1  flex flex-col-reverse overflow-y-auto scrollbar-rounded scrollbar-thin scrollbar-track-black scrollbar-thumb-gray-700"
       >
         <div className="flex flex-col space-y-4">
           {/* Loading spinner at top */}
