@@ -50,7 +50,7 @@ export default function SignInForm() {
       } else {
         toast({
           title: 'Error',
-          description: result.error,
+          description:'may be you are using RISTRICTED  Wifi',
           variant: 'destructive',
         });
       }
