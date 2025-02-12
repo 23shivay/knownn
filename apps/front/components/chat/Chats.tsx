@@ -377,7 +377,7 @@ export default function Chats({ groupId }: { groupId: string }) {
 
       <div 
         ref={messagesContainerRef}
-        className="flex-1  flex flex-col-reverse overflow-y-auto scrollbar-rounded scrollbar-thin scrollbar-track-black scrollbar-thumb-gray-700"
+        className="flex-1  flex flex-col-reverse overflow-y-auto scrollbar-rounded scrollbar-thin scrollbar-track-black scrollbar-thumb-gray-700 p-2"
       >
         <div className="flex flex-col space-y-4">
           {/* Loading spinner at top */}
@@ -392,10 +392,10 @@ export default function Chats({ groupId }: { groupId: string }) {
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={`relative border-e-2 flex max-w-lg rounded-lg p-1 shadow-md space-x-4 ${
+              className={`relative border-e-2 flex max-w-lg rounded-lg p-1 shadow-md space-x-4 pr-2 ${
                 msg.sender_session_id === sessionId
-                  ? "bg-gray-400 text-black self-end"
-                  : "bg-gradient-to-r from-gray-200 to-gray-300 text-black self-start"
+                  ? "bg-gradient-to-l from-gray-200 to-gray-300 text-black self-end"
+                  : "bg-gradient-to-l from-gray-200 to-gray-300 text-black self-start"
               }`}
             >
               <p className="break-words space-y-3 flex items-center justify-center text-sm text-left pl-2 flex-1">

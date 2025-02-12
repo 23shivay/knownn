@@ -176,13 +176,13 @@ const MenuItem = ({ item }: { item: SideNavItem }) => {
           </button>
 
           {subMenuOpen && session && (
-            <div className="my-2 ml-12 flex flex-col space-y-4">
+            <div className="my-1 ml-12 flex flex-col space-y-2">
               {item.subMenuItems?.map((subItem, idx) => (
                 <div
                   key={idx}
-                  className={`${subItem.path === pathname ? 'font-bold' : ''} ${
-                    !session ? 'pointer-events-none opacity-50' : ''
-                  }`}
+                  className={`p-2 rounded-md transition duration-300 ${
+                    subItem.path === pathname ? 'bg-gray-800 text-white' : 'text-gray-300'
+                  } hover:bg-gray-700 hover:text-white cursor-pointer`} // 🔥 Added hover effect
                   onClick={() => session && handleButtonClick(subItem.title)} // Only works if session exists
                 >
                   <span>{subItem.title}</span>
