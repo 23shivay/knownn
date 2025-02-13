@@ -256,7 +256,7 @@ const fetchingSessionIdVotingonAll = useCallback(async () => {
       </div>
     ) : (
       <div className='flex flex-col  w-full min-h-screen'>
-      <div className='flex  items-end  justify-end'>
+      <div className='flex  items-end  justify-end mt-10'>
       <Dialog open={open} onOpenChange={setOpen}>
   <DialogTrigger asChild>
     <Button>
