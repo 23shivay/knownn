@@ -444,7 +444,7 @@ const ContentSuggestionPage = () => {
 
   const fetchContent = useCallback(async () => {
       try {
-          const response = await axios.get('/api/get-content')
+          const response = await axios.post('/api/get-content')
           const contentData = response.data.data
           setContent(contentData)
       } catch (error) {
