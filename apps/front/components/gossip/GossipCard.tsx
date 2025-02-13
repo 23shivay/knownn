@@ -23,7 +23,7 @@ export interface GossipItem {
 
 export interface VoteItem {
   id: number;
-  contentId: string;
+  contentId: string; 
   voteType: "like" | "dislike";
   sessionId: string;
 }
@@ -199,72 +199,134 @@ const Card = ({ item, socket, sessionId, sessionIdVotes }: CardProps) => {
   const descriptionToShow = isExpanded ? item.description : item.description.slice(0, 100);
 
   return (
+    // <div className="border border-gray-700 rounded-lg pt-3 pr-3 pl-3 pb-3 text-white hover:shadow-2xl hover:shadow-gray-700 transition-shadow duration-300 relative flex flex-col justify-between">
+    //   <div className="flex justify-end">
+      
+    //     {/* Only show the report option if the user hasn't already reported */}
+        
+    //       <ReportPost
+    //         item={item}
+    //         sessionId={sessionId}
+    //         contentType="GOSSIP"
+    //       />
+        
+      
+
+    //   </div>
+    //   <div>
+    //     <div className="w-full overflow-hidden flex justify-between">
+    //       <span>
+    //         <h3 className="text-xl font-semibold mb-2 overflow-hidden text-ellipsis whitespace-nowrap">
+    //           {item.contentName}
+    //         </h3>
+    //       </span>
+    //     </div>
+
+    //     <p className="text-sm mb-3 leading-relaxed">
+    //       {descriptionToShow}
+    //       {item.description.length > 100 && (
+    //         <button
+    //           onClick={toggleDescription}
+    //           className="text-blue-600 ml-1 underline hover:text-blue-800"
+    //         >
+    //           {isExpanded ? "Show Less" : "More"}
+    //         </button>
+    //       )}
+    //     </p>
+    //   </div>
+
+    //   <div className="flex flex-row justify-evenly items-center mt-4">
+    //     <Button
+    //       onClick={handleLike}
+    //       className={voteStatus === "like" ? "bg-gradient-to-r from-pink-400 to-purple-600 flex  space-x-1 px-3" : ""} 
+    //     >
+    //       Like
+    //       <CountUp className='px-1' start={Math.max(0, likeCount - 1)} end={likeCount} duration={0.5} />
+    //     </Button>
+    //     <Button
+    //       onClick={handleDislike}
+    //       className={voteStatus === "dislike" ? "bg-gradient-to-r from-pink-400 to-purple-600" : ""}
+    //     >
+    //       Dislike
+    //       <CountUp className='px-1' start={Math.max(0, dislikeCount - 1)} end={dislikeCount} duration={0.5} />
+    //     </Button>
+
+    //     <Link href={`/gossip/${item.id}`}>
+    //       <Button>Comments</Button>
+    //     </Link>
+    //   </div>
+
+    //   {/* Created on Date placed at the bottom-right using flex */}
+    //   <div className="flex justify-end mt-5">
+    //     <div className="text-sm">
+    //       {new Date(item.createdAt).getDate().toString().padStart(2, '0')}/
+    //       {(new Date(item.createdAt).getMonth() + 1).toString().padStart(2, '0')}/
+    //       {new Date(item.createdAt).getFullYear()}
+    //     </div>
+    //   </div>
+    // </div>
     <div className="border border-gray-700 rounded-lg pt-3 pr-3 pl-3 pb-3 text-white hover:shadow-2xl hover:shadow-gray-700 transition-shadow duration-300 relative flex flex-col justify-between">
-      <div className="flex justify-end">
-      
-        {/* Only show the report option if the user hasn't already reported */}
-        
-          <ReportPost
-            item={item}
-            sessionId={sessionId}
-            contentType="GOSSIP"
-          />
-        
-      
+  <div className="flex justify-end">
+    {/* Only show the report option if the user hasn't already reported */}
+    <ReportPost item={item} sessionId={sessionId} contentType="GOSSIP" />
+  </div>
 
-      </div>
-      <div>
-        <div className="w-full overflow-hidden flex justify-between">
-          <span>
-            <h3 className="text-xl font-semibold mb-2 overflow-hidden text-ellipsis whitespace-nowrap">
-              {item.contentName}
-            </h3>
-          </span>
-        </div>
-
-        <p className="text-sm mb-3 leading-relaxed">
-          {descriptionToShow}
-          {item.description.length > 100 && (
-            <button
-              onClick={toggleDescription}
-              className="text-blue-600 ml-1 underline hover:text-blue-800"
-            >
-              {isExpanded ? "Show Less" : "More"}
-            </button>
-          )}
-        </p>
-      </div>
-
-      <div className="flex flex-row justify-evenly items-center mt-4">
-        <Button
-          onClick={handleLike}
-          className={voteStatus === "like" ? "bg-gradient-to-r from-pink-400 to-purple-600 flex  space-x-1 px-3" : ""} 
-        >
-          Like
-          <CountUp className='px-1' start={Math.max(0, likeCount - 1)} end={likeCount} duration={0.5} />
-        </Button>
-        <Button
-          onClick={handleDislike}
-          className={voteStatus === "dislike" ? "bg-gradient-to-r from-pink-400 to-purple-600" : ""}
-        >
-          Dislike
-          <CountUp className='px-1' start={Math.max(0, dislikeCount - 1)} end={dislikeCount} duration={0.5} />
-        </Button>
-
-        <Link href={`/gossip/${item.id}`}>
-          <Button>Comments</Button>
-        </Link>
-      </div>
-
-      {/* Created on Date placed at the bottom-right using flex */}
-      <div className="flex justify-end mt-5">
-        <div className="text-sm">
-          {new Date(item.createdAt).getDate().toString().padStart(2, '0')}/
-          {(new Date(item.createdAt).getMonth() + 1).toString().padStart(2, '0')}/
-          {new Date(item.createdAt).getFullYear()}
-        </div>
-      </div>
+  <div>
+    <div className="w-full overflow-hidden flex justify-between">
+      <span className="w-full">
+        <h3 className="text-xl font-semibold mb-2 break-words whitespace-normal">
+          {item.contentName}
+        </h3>
+      </span>
     </div>
+
+    <p className="text-sm mb-3 leading-relaxed">
+      {descriptionToShow}
+      {item.description.length > 100 && (
+        <button
+          onClick={toggleDescription}
+          className="text-blue-600 ml-1 underline hover:text-blue-800"
+        >
+          {isExpanded ? "Show Less" : "More"}
+        </button>
+      )}
+    </p>
+  </div>
+
+  <div className="flex flex-row justify-evenly items-center mt-4">
+    <Button
+      onClick={handleLike}
+      className={voteStatus === "like" ? "bg-gradient-to-r from-pink-400 to-purple-600 flex space-x-1 px-3" : ""} 
+    >
+      Like
+      <CountUp className='px-1' start={Math.max(0, likeCount - 1)} end={likeCount} duration={0.5} />
+    </Button>
+    
+    <Button
+      onClick={handleDislike}
+      className={voteStatus === "dislike" ? "bg-gradient-to-r from-pink-400 to-purple-600" : ""}
+    >
+      Dislike
+      <CountUp className='px-1' start={Math.max(0, dislikeCount - 1)} end={dislikeCount} duration={0.5} />
+    </Button>
+
+    <Link  href={`/gossip/${item.id}`}>
+      <Button className=' 
+  transition-all duration-300 
+  hover:bg-gradient-to-r hover:from-pink-400 hover:to-purple-600'>Comments</Button>
+    </Link>
+  </div>
+
+  {/* Created on Date placed at the bottom-right using flex */}
+  <div className="flex justify-end mt-5">
+    <div className="text-sm">
+      {new Date(item.createdAt).getDate().toString().padStart(2, '0')}/
+      {(new Date(item.createdAt).getMonth() + 1).toString().padStart(2, '0')}/
+      {new Date(item.createdAt).getFullYear()}
+    </div>
+  </div>
+</div>
+
   );
 };
 

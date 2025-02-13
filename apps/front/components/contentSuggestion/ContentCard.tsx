@@ -182,9 +182,13 @@ const Card = ({ item, socket, sessionId, sessionIdVotes }: CardProps) => {
       </div>
       
       <div>
-        <h3 className="text-xl font-semibold mb-2 overflow-hidden text-ellipsis whitespace-nowrap">
+      <div className="w-full overflow-hidden flex justify-between">
+      <span className="w-full">
+        <h3 className="text-xl font-semibold mb-2 break-words whitespace-normal">
           {item.contentName}
         </h3>
+      </span>
+    </div>
 
         <p className="text-sm mb-3 leading-relaxed">
           {descriptionToShow}
@@ -227,7 +231,8 @@ const Card = ({ item, socket, sessionId, sessionIdVotes }: CardProps) => {
         </Button>
 
         <Link href={`/contentsuggestion/${item.id}`}>
-          <Button>Comments</Button>
+          <Button className='transition-all duration-300 
+  hover:bg-gradient-to-r hover:from-pink-400 hover:to-purple-600'>Comments</Button>
         </Link>
       </div>
 
