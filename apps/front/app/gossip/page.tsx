@@ -5,7 +5,7 @@ import {
     Dialog,
     DialogContent,
     DialogDescription,
-    DialogHeader,
+    DialogHeader, 
     DialogTitle,
     DialogTrigger,
   } from "components/ui/dialog"
@@ -91,7 +91,7 @@ const GossipPage = () => {
       const axiosError = error as AxiosError<ApiResponse>;
       const errorMessage = axiosError.response?.data.message || 'There was a problem in creating GOSSIP . Please try again.';
       toast({
-        title: 'Sign Up Failed',
+        title: 'Issue in creating Gossip',
         description: errorMessage,
         variant: 'destructive',
       });
@@ -109,8 +109,7 @@ const GossipPage = () => {
         const response = await axios.post('/api/get-gossip',{
           organizationName:organizationName
         });
-        console.log(response.data.data)
-        // Assuming contentCardType is correctly defined somewhere in your code
+       
         const content = response.data.data;
   
         // Optionally, do something with 'content', e.g., set it in state:

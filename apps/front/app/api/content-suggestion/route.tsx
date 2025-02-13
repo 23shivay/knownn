@@ -5,7 +5,7 @@ export async function POST(request:Request){
          
        // const {contentType,genre,contentName,description,language,platform}=await request.json()
         const{userId,contentData,contentId}=await request.json()
-        const Id = contentId.concat("-content");
+        const Id = contentId.concat("-content"); 
         
          
         //checking movie already exist or not
