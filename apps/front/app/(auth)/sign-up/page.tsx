@@ -108,7 +108,7 @@ const SignUpPage = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl> 
-                    <Input type="password" placeholder="password" {...field} />
+                    <Input type="password" placeholder="set password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
