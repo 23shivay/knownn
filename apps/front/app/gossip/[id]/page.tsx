@@ -218,77 +218,87 @@ const particularGossipPage = ({ params }: { params: { id: string } }) => {
     </div> 
   ) : ( 
     <div className="flex flex-col justify-center items-center h-[calc(100vh-6rem)] bg-black text-white overflow-auto pt-2">
-      <div className="flex flex-col lg:flex-row w-full max-w-4xl bg-black shadow-lg h-auto lg:h-3/4 overflow-hidden border-b border-r border-gray-700">
-        <div className="flex flex-col w-full lg:w-1/3 items-start justify-between space-y-6 h-full p-3 border border-gray-700 bg-black">
-          <div className="flex flex-col space-y-4 w-full h-full">
-            <div className="text-yellow-100 text-3xl font-semibold text-left">
-              {particularContent?.contentName}
-            </div>
-            {particularContent?.description && (
-              <div className={`${
-                particularContent.description.split(' ').length > 120 
-                  ? 'overflow-y-auto max-h-[300px] pr-2 scrollbar-thin scrollbar-track-black scrollbar-thumb-gray-700' 
-                  : ''
-              } text-white text-sm`}>
-                {particularContent.description}
-              </div>
-            )}
-          </div>
-
-          <div className="flex flex-row justify-evenly items-center w-full pt-4 pb-4">
-            <button
-              onClick={() => handleVote('like')}
-              className={`py-2 px-6 rounded-lg text-white font-semibold transition-all duration-300 ${
-                voteStatus === 'like' ? 'bg-gradient-to-r from-pink-400 to-purple-600' : 'bg-gray-700 hover:bg-gray-600'
-              }`}
-            >
-              Like <CountUp start={Math.max(0, likeCount - 1)} end={likeCount} duration={0.5} />
-            </button>
-            <button
-              onClick={() => handleVote('dislike')}
-              className={`py-2 px-6 rounded-lg text-white font-semibold transition-all duration-300 ${
-                voteStatus === 'dislike' ? 'bg-gradient-to-r from-pink-400 to-purple-600' : 'bg-gray-700 hover:bg-gray-600'
-              }`}
-            > 
-              Dislike <CountUp start={Math.max(0, dislikeCount - 1)} end={dislikeCount} duration={0.5} />
-            </button>
-          </div>
-        </div>
-
-        <div 
-          ref={commentsContainerRef}
-          className="flex-1 flex flex-col bg-black rounded-lg p-1 overflow-y-auto max-h-full scrollbar-thin scrollbar-track-black scrollbar-thumb-gray-700"
-        >
-          <div className="flex flex-col space-y-2">
-            {comments.map((comment) => (
-              <div
-                key={comment.id}
-                className="relative p-3 bg-black rounded-lg shadow-lg text-sm"
-              >
-                <div className="absolute top-2 right-2">
-                  <ReportMessage
-                    item={comment}
-                    sessionId={sessionId}
-                    contentType="GOSSIP_COMMENT"
-                  />
-                </div>
-                <p className="text-base">{comment.message}</p>
-                <span className="absolute right-2 bottom-2 text-xs text-gray-400">
-                  {formatDistanceToNow(new Date(comment.createdAt))}
-                </span>
-              </div>
-            ))}
-            
-            {isLoadingMore && (
-              <div className="flex justify-center p-4">
-                <MiniSpinner />
-              </div>
-            )}
-            
-            <div ref={loadMoreRef} className="h-4" />
-          </div>
-        </div>
+   <div className="flex flex-col lg:flex-row w-full max-w-4xl bg-black shadow-lg h-auto lg:h-3/4 border-b border-r border-gray-700 mx-auto">
+  {/* Left Content Section */}
+  <div className="flex flex-col w-full lg:w-1/3 items-start justify-between h-full p-3 border border-gray-700 bg-black">
+    <div className="flex flex-col space-y-4 w-full h-full">
+      <div className="text-yellow-100 text-3xl font-semibold text-left break-words">
+        {particularContent?.contentName}
       </div>
+      {particularContent?.description && (
+        <div className={`${
+          particularContent.description.split(' ').length > 120
+            ? 'overflow-y-auto max-h-[300px] pr-2 scrollbar-thin scrollbar-track-black scrollbar-thumb-gray-700'
+            : ''
+        } text-white text-sm break-words`}>
+          {particularContent.description}
+        </div>
+      )}
+    </div>
+
+    {/* Like/Dislike Buttons */}
+    <div className="flex flex-row justify-evenly items-center w-full pt-4 pb-4 gap-2">
+      <button
+        onClick={() => handleVote('like')}
+        className={`py-2 px-4 rounded-lg text-white font-semibold transition-all duration-300 flex-1 ${
+          voteStatus === 'like' ? 'bg-gradient-to-r from-pink-400 to-purple-600' : 'bg-gray-700 hover:bg-gray-600'
+        }`}
+      >
+        Like <CountUp start={Math.max(0, likeCount - 1)} end={likeCount} duration={0.5} />
+      </button>
+      <button
+        onClick={() => handleVote('dislike')}
+        className={`py-2 px-4 rounded-lg text-white font-semibold transition-all duration-300 flex-1 ${
+          voteStatus === 'dislike' ? 'bg-gradient-to-r from-pink-400 to-purple-600' : 'bg-gray-700 hover:bg-gray-600'
+        }`}
+      >
+        Dislike <CountUp start={Math.max(0, dislikeCount - 1)} end={dislikeCount} duration={0.5} />
+      </button>
+    </div>
+  </div>
+
+  {/* Comments Section */}
+  <div
+    ref={commentsContainerRef}
+    className="flex-1 flex flex-col bg-black rounded-lg p-1 overflow-y-auto h-full
+              scrollbar-thin scrollbar-track-black scrollbar-thumb-gray-700"
+  >
+    <div className="flex flex-col space-y-1 w-full">
+      {comments.map((comment) => (
+        <div
+          key={comment.id}
+          className="p-3 bg-black rounded-lg shadow-lg text-sm w-full"
+        >
+          <div className="mb-0 text-xs block text-right">
+            <ReportMessage
+              item={comment}
+              sessionId={sessionId}
+              contentType="GOSSIP_COMMENT"
+            />
+          </div>
+
+          <p className="text-base break-words whitespace-normal">
+            {comment.message}
+          </p>
+
+          <span className="mt-0 text-xs text-gray-400 block text-right">
+            {formatDistanceToNow(new Date(comment.createdAt))}
+          </span>
+        </div>
+      ))}
+
+      {isLoadingMore && (
+        <div className="flex justify-center p-4">
+          <MiniSpinner />
+        </div>
+      )}
+
+      <div ref={loadMoreRef} className="h-4" />
+    </div>
+  </div>
+</div>
+
+
 
       <form
         onSubmit={handleSubmit}

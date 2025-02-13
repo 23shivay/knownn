@@ -60,7 +60,7 @@ const particularContentPage = ({ params }: { params: { id: string } }) => {
         title: "Error",
         description: axiosError.response?.data.message ?? "Failed to fetch content",
         variant: "destructive",
-      });
+      }); 
     }
   }, [params.id, toast]);
 
@@ -315,15 +315,16 @@ const particularContentPage = ({ params }: { params: { id: string } }) => {
                   key={comment.id}
                   className="relative p-3 bg-black rounded-lg shadow-lg text-sm"
                 >
-                  <div className="absolute top-2 right-2">
+                  
+                  <div className="mb-0 text-xs block text-right">
                     <ReportMessage
                       item={comment}
                       sessionId={sessionId}
                       contentType="CONTENT_COMMENT"
                     />
                   </div>
-                  <p className="text-base">{comment.message}</p>
-                  <span className="absolute right-2 bottom-2 text-xs text-gray-400">
+                  <p className="text-base break-words whitespace-normal w-full">{comment.message}</p>
+                  <span className="mt-0 text-xs text-gray-400 block text-right">
                     {formatDistanceToNow(new Date(comment.createdAt))}
                   </span>
                 </div>
