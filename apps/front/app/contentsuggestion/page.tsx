@@ -92,70 +92,26 @@ const ContentSuggestionButton = () => {
    })
 
    
-  //  const onSubmit=async(data:z.infer<typeof contentSuggestionSchema>)=>{
-  //   setIsSubmitting(true);
-  //   try {
-  //     const response = await axios.post<ApiResponse>('/api/content-suggestion', {contentData:data,userId:userId,contentId:uuidv4()});
-  //     toast({
-  //       title: 'Success',
-  //       description: response.data.message,
-
-  //     });
-  //     console.log(data);
-  //     console.log(userId);
-  //     if(response.data.success==true){
-  //       setOpen(!open)
-  //     }
-      
-      
-  //   } catch (error) {
-  //     console.error('Error durring suggesting Content:', error);
-  //     const axiosError = error as AxiosError<ApiResponse>;
-  //     const errorMessage = axiosError.response?.data.message || 'There was a problem in Suggestiong Content. Please try again.';
-  //     toast({
-  //       title: 'Issue in Suggesting Content',
-  //       description: errorMessage,
-  //       variant: 'destructive',
-  //     });
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-
-  //  }
- 
-   //fetching content
-   
-
-   const onSubmit = async (data: z.infer<typeof contentSuggestionSchema>) => {
+   const onSubmit=async(data:z.infer<typeof contentSuggestionSchema>)=>{
     setIsSubmitting(true);
     try {
-      const response = await axios.post<ApiResponse>('/api/content-suggestion', {
-        contentData: data,
-        userId: userId,
-        contentId: uuidv4(),
-      });
-  
+      const response = await axios.post<ApiResponse>('/api/content-suggestion', {contentData:data,userId:userId,contentId:uuidv4()});
       toast({
         title: 'Success',
         description: response.data.message,
+
       });
-  
       console.log(data);
       console.log(userId);
-  
-      if (response.data.success) {
-        setOpen(!open);
-        
-        // Immediately fetch the updated content
-        await fetchContent();  // <-- Call fetchContent here
+      if(response.data.success==true){
+        setOpen(!open)
       }
+      
+      
     } catch (error) {
-      console.error('Error during suggesting Content:', error);
+      console.error('Error durring suggesting Content:', error);
       const axiosError = error as AxiosError<ApiResponse>;
-      const errorMessage =
-        axiosError.response?.data.message ||
-        'There was a problem suggesting content. Please try again.';
-  
+      const errorMessage = axiosError.response?.data.message || 'There was a problem in Suggestiong Content. Please try again.';
       toast({
         title: 'Issue in Suggesting Content',
         description: errorMessage,
@@ -164,8 +120,13 @@ const ContentSuggestionButton = () => {
     } finally {
       setIsSubmitting(false);
     }
-  };
-  
+
+   }
+ 
+   
+   
+
+
   
    
    
@@ -197,7 +158,7 @@ const ContentSuggestionButton = () => {
         setIsLoading(false);  // Reset loading state in both success and error cases
       }
     },
-    [toast]  
+    [toast,setIsLoading]  
   );
  
 
@@ -223,7 +184,7 @@ const fetchingSessionIdVotingonAll = useCallback(async () => {
   } finally {
     setIsLoading(false);
   }
-}, []);
+}, [toast,setIsLoading]);
   
 
    //Fetch initial state from the server
@@ -234,7 +195,7 @@ const fetchingSessionIdVotingonAll = useCallback(async () => {
     fetchingSessionIdVotingonAll()
 
     
-  }, [session,toast]);
+  }, [session,toast,isSubmitting==false]);
 
     useEffect(() => {
       const fetchData = async () => {

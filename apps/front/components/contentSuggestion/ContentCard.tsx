@@ -20,7 +20,8 @@ export interface ContentItem {
   description: string;
   likeCount: number | any;
   dislikeCount: number | any;
-  status:string
+  status:string;
+  isHidden:boolean
 }
 
 export interface VoteItem {
@@ -54,12 +55,12 @@ useEffect(() => {
         socket.auth = { isVoting: true };
         socket.connect();
     }
-}, [socket, content]);  
+}, [ content]);  
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 p-6">
   {content.map((item) => (
-    item.status === "active" ? (
+    item.isHidden === false ? (
       <Card 
         key={item.id} 
         item={item} 
