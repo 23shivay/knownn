@@ -120,7 +120,7 @@ export default function SignInForm() {
                     Please wait
                   </>
                 ) : (
-                  "Sign Up"
+                  "Sign in "
                 )}
               </Button>
             </div>
