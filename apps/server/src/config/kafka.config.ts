@@ -63,7 +63,9 @@ import { Kafka, logLevel, Partitioners } from "kafkajs";
 import fs from "fs";
 import path from "path";
 
+// Kafka Configuration
 export const kafka = new Kafka({
+    clientId: "knownn-server", // Use a fixed client ID to avoid rebalancing issues
     brokers: [`${process.env.KAFKA_BROKER}`],
     ssl: {
         ca: [fs.readFileSync(path.resolve("./ca.pem"), "utf-8")],
@@ -75,53 +77,57 @@ export const kafka = new Kafka({
     },
     retry: {
         retries: 5, // Retry up to 5 times
-        initialRetryTime: 300,
+        initialRetryTime: 300, // Start retrying after 300ms
     },
     logLevel: logLevel.WARN, // Reduce log verbosity
 });
 
+// Kafka Producer
 export const producer = kafka.producer({
     createPartitioner: Partitioners.LegacyPartitioner,
 });
 
+// Kafka Consumers with Optimized Configurations
 export const consumer = kafka.consumer({
     groupId: "chats",
-    sessionTimeout: 60000, // 60s timeout
-    heartbeatInterval: 10000, // Send heartbeats every 10s
+    sessionTimeout: 45000, // Reduce timeout to 45s
+    heartbeatInterval: 3000, // Send heartbeat every 3s
+    maxInFlightRequests: 5, // Allow up to 5 requests at the same time
 });
 
 export const voteconsumer = kafka.consumer({
     groupId: "votes",
-    sessionTimeout: 60000,
-    heartbeatInterval: 10000,
+    sessionTimeout: 45000,
+    heartbeatInterval: 3000,
+    maxInFlightRequests: 5,
 });
 
-// ✅ Producer connection handler
+// ✅ Producer Connection Handler
 export const connectKafkaProducer = async () => {
     try {
         await producer.connect();
-        console.log("Kafka Producer connected");
+        console.log("✅ Kafka Producer connected");
     } catch (error) {
-        console.error("Kafka Producer connection failed:", error);
+        console.error("❌ Kafka Producer connection failed:", error);
     }
 };
 
-// ✅ Consumer connection handler
+// ✅ Consumer Connection Handler
 export const connectKafkaConsumer = async (consumer: any, topic: string) => {
     try {
         await consumer.connect();
         await consumer.subscribe({ topic, fromBeginning: true });
 
-        console.log(`Kafka Consumer connected to topic: ${topic}`);
+        console.log(`✅ Kafka Consumer connected to topic: ${topic}`);
 
         consumer.on("consumer.disconnect", () => {
-            console.warn(`Kafka Consumer for ${topic} disconnected`);
+            console.warn(`⚠️ Kafka Consumer for ${topic} disconnected`);
         });
 
-        consumer.on("consumer.error", (error:any) => {
-            console.error(`Kafka Consumer error for ${topic}:`, error);
+        consumer.on("consumer.error", (error: any) => {
+            console.error(`❌ Kafka Consumer error for ${topic}:`, error);
         });
     } catch (error) {
-        console.error(`Error connecting Kafka Consumer for ${topic}:`, error);
+        console.error(`❌ Error connecting Kafka Consumer for ${topic}:`, error);
     }
 };
