@@ -269,7 +269,7 @@ const particularContentPage = ({ params }: { params: { id: string } }) => {
   </div>
 
   {/* Voting Buttons */}
-  <div className="flex flex-row justify-evenly items-center w-full pt-4">
+  <div className="flex flex-row justify-evenly items-center w-full pt-4 gap-2 h-[15%]">
     <button
       onClick={() => handleVote('like')}
       className={`py-2 px-6 rounded-lg text-white font-semibold transition-all duration-300 ${

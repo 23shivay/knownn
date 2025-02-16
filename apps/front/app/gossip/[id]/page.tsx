@@ -221,41 +221,49 @@ const particularGossipPage = ({ params }: { params: { id: string } }) => {
    <div className="flex flex-col lg:flex-row w-full max-w-4xl bg-black shadow-lg h-auto lg:h-3/4 border-b border-r border-gray-700 mx-auto">
   {/* Left Content Section */}
   <div className="flex flex-col w-full lg:w-1/3 items-start justify-between h-full p-3 border border-gray-700 bg-black">
-    <div className="flex flex-col space-y-4 w-full h-full">
-      <div className="text-yellow-100 text-3xl font-semibold text-left break-words">
-        {particularContent?.contentName}
-      </div>
-      {particularContent?.description && (
-        <div className={`${
-          particularContent.description.split(' ').length > 120
-            ? 'overflow-y-auto max-h-[300px] pr-2 scrollbar-thin scrollbar-track-black scrollbar-thumb-gray-700'
-            : ''
-        } text-white text-sm break-words`}>
-          {particularContent.description}
-        </div>
-      )}
+  {/* Content Section with Fixed Height */}
+  <div className="flex flex-col space-y-4 w-full h-[85%] overflow-hidden">
+    {/* Title */}
+    <div className="text-yellow-100 text-3xl font-semibold text-left break-words">
+      {particularContent?.contentName}
     </div>
 
-    {/* Like/Dislike Buttons */}
-    <div className="flex flex-row justify-evenly items-center w-full pt-4 pb-4 gap-2">
-      <button
-        onClick={() => handleVote('like')}
-        className={`py-2 px-4 rounded-lg text-white font-semibold transition-all duration-300 flex-1 ${
-          voteStatus === 'like' ? 'bg-gradient-to-r from-pink-400 to-purple-600' : 'bg-gray-700 hover:bg-gray-600'
-        }`}
+    {/* Scrollable Description */}
+    {particularContent?.description && (
+      <div
+        className={`overflow-y-auto pr-2 scrollbar-thin scrollbar-track-black scrollbar-thumb-gray-700 text-white text-sm break-words`}
+        style={{ maxHeight: "235px" }} // Limit height
       >
-        Like <CountUp start={Math.max(0, likeCount - 1)} end={likeCount} duration={0.5} />
-      </button>
-      <button
-        onClick={() => handleVote('dislike')}
-        className={`py-2 px-4 rounded-lg text-white font-semibold transition-all duration-300 flex-1 ${
-          voteStatus === 'dislike' ? 'bg-gradient-to-r from-pink-400 to-purple-600' : 'bg-gray-700 hover:bg-gray-600'
-        }`}
-      >
-        Dislike <CountUp start={Math.max(0, dislikeCount - 1)} end={dislikeCount} duration={0.5} />
-      </button>
-    </div>
+        {particularContent.description}
+      </div>
+    )}
   </div>
+
+  {/* Like/Dislike Buttons - Fixed at Bottom */}
+  <div className="flex flex-row justify-evenly items-center w-full py-4 gap-2 h-[15%]">
+    <button
+      onClick={() => handleVote("like")}
+      className={`py-2 px-4 rounded-lg text-white font-semibold transition-all duration-300 flex-1 ${
+        voteStatus === "like"
+          ? "bg-gradient-to-r from-pink-400 to-purple-600"
+          : "bg-gray-700 hover:bg-gray-600"
+      }`}
+    >
+      Like <CountUp start={Math.max(0, likeCount - 1)} end={likeCount} duration={0.5} />
+    </button>
+    <button
+      onClick={() => handleVote("dislike")}
+      className={`py-2 px-4 rounded-lg text-white font-semibold transition-all duration-300 flex-1 ${
+        voteStatus === "dislike"
+          ? "bg-gradient-to-r from-pink-400 to-purple-600"
+          : "bg-gray-700 hover:bg-gray-600"
+      }`}
+    >
+      Dislike <CountUp start={Math.max(0, dislikeCount - 1)} end={dislikeCount} duration={0.5} />
+    </button>
+  </div>
+</div>
+
 
   {/* Comments Section */}
   <div
