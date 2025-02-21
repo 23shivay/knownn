@@ -264,7 +264,7 @@ const particularGossipPage = ({ params }: { params: { id: string } }) => {
   </div>
 </div>
 
-
+ 
   {/* Comments Section */}
   <div
     ref={commentsContainerRef}

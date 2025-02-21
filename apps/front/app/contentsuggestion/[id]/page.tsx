@@ -187,7 +187,7 @@ const particularContentPage = ({ params }: { params: { id: string } }) => {
     const payload: MessageType = {
       id: uuidv4(),
       message: comment,
-      createdAt: new Date().toISOString(),
+      createdAt: new Date().toISOString(), 
       group_id: params.id,
       sender_session_id: sessionId,
     };

@@ -8,7 +8,7 @@
 // import React, { useState } from 'react'
 
    
-
+ 
 // const page = () => {
 //   const [isLoading,setIsLoading]=useState(true)
 //   const { data: session } = useSession();
@@ -421,6 +421,7 @@ const ContentSuggestionPage = () => {
   const { data: session } = useSession()
   const userid = session?.user?.sessionId
   const userId = session?.user?.email
+  const organizationName = session?.user?.organizationName;
 
   const form = useForm<z.infer<typeof contentSuggestionSchema>>({
       resolver: zodResolver(contentSuggestionSchema),
@@ -479,7 +480,7 @@ const ContentSuggestionPage = () => {
       try {
           const response = await axios.post<ApiResponse>('/api/content-suggestion', {
               contentData: data,
-              userId: userId,
+              organizationName: organizationName,
               contentId: uuidv4()
           })
           

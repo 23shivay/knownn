@@ -4,10 +4,10 @@ export async function POST(request:Request){
     try {
          
        // const {contentType,genre,contentName,description,language,platform}=await request.json()
-        const{userId,contentData,contentId}=await request.json()
+        const{organizationName,contentData,contentId}=await request.json()
         const Id = contentId.concat("-content"); 
         
-         
+          
         //checking movie already exist or not
         const existingMovie=await db.contentSuggestion.findUnique({
             where:{
@@ -31,7 +31,7 @@ export async function POST(request:Request){
                 genre:contentData.genre,
                 contentName:contentData.contentName,
                 platform:contentData.platform,
-                userId:userId,
+                organizationName: organizationName,
                 description:contentData.description,
                 language:contentData.language
             }

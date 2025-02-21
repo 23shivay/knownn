@@ -85,11 +85,11 @@ CREATE TABLE "contentSuggestion" (
     "contentName" TEXT NOT NULL,
     "platform" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "userId" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "language" TEXT,
     "likeCount" INTEGER NOT NULL DEFAULT 0,
     "dislikeCount" INTEGER NOT NULL DEFAULT 0,
+    "organizationName" TEXT NOT NULL DEFAULT 'Unknown',
     "isHidden" BOOLEAN NOT NULL DEFAULT false,
     "reportCount" INTEGER NOT NULL DEFAULT 0,
     "status" TEXT NOT NULL DEFAULT 'active',
@@ -211,7 +211,7 @@ ALTER TABLE "contentComment" ADD CONSTRAINT "contentComment_contentSuggestionId_
 ALTER TABLE "gossipComment" ADD CONSTRAINT "gossipComment_gossipId_fkey" FOREIGN KEY ("gossipId") REFERENCES "Gossip"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "contentSuggestion" ADD CONSTRAINT "contentSuggestion_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("email") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "contentSuggestion" ADD CONSTRAINT "contentSuggestion_organizationName_fkey" FOREIGN KEY ("organizationName") REFERENCES "Organization"("name") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Gossip" ADD CONSTRAINT "Gossip_organizationName_fkey" FOREIGN KEY ("organizationName") REFERENCES "Organization"("name") ON DELETE CASCADE ON UPDATE CASCADE;

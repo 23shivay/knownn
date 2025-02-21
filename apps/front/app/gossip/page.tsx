@@ -7,7 +7,7 @@ import {
     DialogDescription,
     DialogHeader, 
     DialogTitle,
-    DialogTrigger,
+    DialogTrigger, 
   } from "components/ui/dialog"
   import { useForm } from 'react-hook-form'
   import { zodResolver } from '@hookform/resolvers/zod'

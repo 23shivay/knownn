@@ -12,7 +12,7 @@ export async function POST(request: Request) {
       where: {
         name: organizationName,
       },
-    });  
+    });   
 
     if (!existingOrganization) {
       return new Response(

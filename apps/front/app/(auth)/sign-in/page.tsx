@@ -49,20 +49,26 @@ export default function SignInForm() {
         password: data.password,
       });
   
-      window.location.reload();
+      
       if (result?.error) {
-        toast({
-          title: "Login Failed",
-          description:
-            result.error === "CredentialsSignin"
-              ? "Incorrect username or password"
-              : "You may be using a RESTRICTED WiFi network",
-          variant: "destructive",
-        });
+        if (result.error === 'CredentialsSignin') {
+          toast({
+            title: 'Login Failed',
+            description: 'Incorrect username or password',
+            variant: 'destructive',
+          });
+        } else {
+          toast({
+            title: 'Error',
+            description: result.error,
+            variant: 'destructive',
+          });
+        }
       } else {
         router.replace("/");
        
       }
+      //window.location.reload();
     } catch (error) {
       toast({
         title: "Unexpected Error",
