@@ -65,10 +65,11 @@ export default function SignInForm() {
           });
         }
       } else {
+        window.location.reload();
         router.replace("/");
        
       }
-      //window.location.reload();
+      
     } catch (error) {
       toast({
         title: "Unexpected Error",
@@ -79,6 +80,8 @@ export default function SignInForm() {
       setIsSubmitting(false);
     }
   };
+
+
   
  
   
