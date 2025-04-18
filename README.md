@@ -13,4 +13,4 @@ https://github.com/23shivay/knownn.git
 - Go to `packages/db`
     - npx prisma migrate dev
     
-- Go to `apps/user-app` , run `npm run dev`
+- Go to `/apps` , run `npm run dev`
