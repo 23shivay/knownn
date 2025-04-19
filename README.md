@@ -1,4 +1,4 @@
-# 🕶️ Knownn – Pseudonymous Community Platform
+#  Knownn – Pseudonymous Community Platform
 
 **Knownn** is a real-time, pseudonymous platform built for colleges and organizations. It brings together individuals with the same email domain (e.g., `@college.edu`) into a private, trusted space where they can share, discuss, and support each other — without revealing their identity.
 
@@ -35,41 +35,30 @@ To create a safe, domain-restricted community where users can:
 - **Vercel** – Frontend deployment
 
 ---
-
-## 📦 Installation
-
 ```bash
 git clone https://github.com/23shivay/knownn.git
 cd knownn
 npm install
+```
 ---
 
-## ⚙️ Setup Instructions
+Setup Instructions
+1. PostgreSQL
+Run PostgreSQL locally or via Aiven.io
 
-### 1. PostgreSQL
-- Run PostgreSQL locally or via [Aiven.io](https://aiven.io)
-- Add credentials to `.env` inside `packages/db`
+Add credentials to .env inside packages/db
 
-### 2. Kafka & Redis
-- Run Redis and Kafka locally or via Aiven
-- Add credentials to `.env` inside `apps/server`
+2. Kafka & Redis
+Run Redis and Kafka locally or via Aiven
+
+Add credentials to .env inside apps/server
+---
 
 ### 3. Prisma Migration
 
 ```bash
 cd packages/db
 npx prisma migrate dev
-
-
-
-
-
-
-
-
-
-
-
-
+```
 
 
