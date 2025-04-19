@@ -43,15 +43,41 @@ npm install
 ---
 
 Setup Instructions
-1. PostgreSQL
-Run PostgreSQL locally or via Aiven.io
 
-Add credentials to .env inside packages/db
-
-2. Kafka & Redis
+ Kafka & Redis
 Run Redis and Kafka locally or via Aiven
-
 Add credentials to .env inside apps/server
+
+
+```bash
+
+KAFKA_BROKER=
+KAFKA_USERNAME=
+REDIS_HOST=
+REDIS_PASSWORD=
+REDIS_PORT=
+REDIS_USERNAME=
+//frontend local host is Socket connect
+SOCKET_CONNECT=
+```
+
+
+ PostgreSQL
+Run PostgreSQL locally or via Aiven.io
+Add credentials to .env inside packages/db
+```bash
+DATABASE_URL=
+
+```
+
+Add credentials to .env inside apps/front
+```bash
+GMAIL_APP_PASSWORD=
+GMAIL_USER=
+NEXTAUTH_SECRET=
+
+```
+
 ---
 
 ### 3. Prisma Migration
@@ -60,5 +86,8 @@ Add credentials to .env inside apps/server
 cd packages/db
 npx prisma migrate dev
 ```
-
+### 3. Run  GTurbo repo 
+```bash
+npm run dev
+```
 
