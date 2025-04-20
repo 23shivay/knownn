@@ -25,9 +25,9 @@ To create a safe, domain-restricted community where users can:
 - **Next.js** – Frontend & API layer  
 - **Node.js (Express)** – Infrastructure backend  
 - **Socket.io** – Real-time messaging  
-- **Redis (Aiven)** – Pub/Sub for message sync  
-- **Apache Kafka (Aiven)** – Durable event streaming  
-- **PostgreSQL (Aiven)** – Persistent data storage  
+- **Redis ** – Pub/Sub for message sync  
+- **Apache Kafka ** – Durable event streaming  
+- **PostgreSQL ** – Persistent data storage  
 - **Prisma ORM** – Type-safe database queries  
 - **Tailwind CSS** – Frontend styling  
 - **Zod** – Input validation  
@@ -86,7 +86,7 @@ NEXTAUTH_SECRET=
 cd packages/db
 npx prisma migrate dev
 ```
-### 3. Run  GTurbo repo 
+### 4. Run  Turbo repo 
 ```bash
 npm run dev
 ```
